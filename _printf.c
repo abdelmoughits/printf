@@ -7,6 +7,7 @@ void ttc(int num);
   *_printf - a simple version of printf
   *@format: a pointer to a const char
   *@...: the other parameters
+  *Return: the number of charactes printed
   */
 int _printf(const char *format, ...)
 {
@@ -24,7 +25,7 @@ int _printf(const char *format, ...)
 			switch (format[i + 1])
 			{
 				case '%':
-					write(1, "%",1);
+					write(1, "%", 1);
 					b++;
 					i++;
 					break;
