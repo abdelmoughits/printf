@@ -46,14 +46,16 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					ss = va_arg(ap, char *);
-					if (ss == NULL)
+					if (ss != NULL)
 					{
-						write(1, "(null)", 7);
-						b = 7;
-						break;
+						b = strlen(ss);
+						write(1, ss, b);
 					}
-					b = strlen(ss);
-					write(1, ss, b);
+					else
+					{
+						write(1, "(null)", 6);
+						b = 6;
+					}
 					i++;
 					break;
 				case 'o':
