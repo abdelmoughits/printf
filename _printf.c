@@ -91,6 +91,10 @@ int _printf(const char *format, ...)
 					i++;
 					break;
 				default:
+					if (format[i + 1] = '\0')
+					{
+						return (-1);
+					}
 					write(1, &(format[i]), 1);
 					b++;
 			}
