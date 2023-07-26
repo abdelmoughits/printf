@@ -40,8 +40,8 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					ss = va_arg(ap, char *);
-					b = strlen(ss);
-					write(1, ss, b);
+					b++;
+					write(1, ss, strlen(ss));
 					i++;
 					break;
 				case 'o':
