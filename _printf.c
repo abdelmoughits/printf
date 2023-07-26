@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "main.h"
+int bin(unsigned int num);
 int ttc(unsigned int num);
 int octa(unsigned int num);
 int exa(unsigned int num, int lar);
@@ -81,6 +82,12 @@ int _printf(const char *format, ...)
 					b = exa(dec, 65);
 					i++;
 					break;
+				case 'b':
+					t = va_arg(ap, int);
+					dec = (unsigned int)t;
+					b = bin(dec);
+					i++;
+					break;
 				case 'i':
 				case 'd':
 					t = va_arg(ap, int);
@@ -91,7 +98,7 @@ int _printf(const char *format, ...)
 						t *= -1;
 						b++;
 					}
-					b += ttc(t);
+					b = ttc(t);
 					i++;
 					break;
 				default:
@@ -99,7 +106,7 @@ int _printf(const char *format, ...)
 					b++;
 			}
 		}
-		else
+	else
 		{
 			write(1, &(format[i]), 1);
 			b++;
@@ -172,6 +179,25 @@ int exa(unsigned int num, int lar)
 	{
 		ptr = (num % 16) - 10 + lar;
 	}
+	write(1, &ptr, 1);
+	return (c);
+}
+/**
+  *bin - print a number with write
+  *@num: the number that will be treated
+  *Return: nothing
+  */
+int bin(unsigned int num)
+{
+	char ptr;
+	int b = 0, c = 1;
+
+	if ((num / 2) != 0)
+	{
+		b = num / 2;
+		c += bin(b);
+	}
+	ptr = (num % 2) + '0';
 	write(1, &ptr, 1);
 	return (c);
 }
