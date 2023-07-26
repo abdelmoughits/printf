@@ -20,6 +20,10 @@ int _printf(const char *format, ...)
 
 	i = 0;
 	va_start(ap, format);
+	if (format == NULL)
+	{
+		return (-1);
+	}
 	while (format && format[i])
 	{
 		b = 0;
@@ -42,8 +46,8 @@ int _printf(const char *format, ...)
 					ss = va_arg(ap, char *);
 					if (ss == NULL)
 					{
-						write(1, "(nul)", 5);
-						b = 5;
+						write(1, "(null)", 7);
+						b = 7;
 						break;
 					}
 					b = strlen(ss);
