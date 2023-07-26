@@ -31,6 +31,8 @@ int _printf(const char *format, ...)
 		{
 			switch (format[i + 1])
 			{
+				case '\0':
+					return (-1);
 				case '%':
 					write(1, "%", 1);
 					b++;
@@ -91,10 +93,6 @@ int _printf(const char *format, ...)
 					i++;
 					break;
 				default:
-					if (format[i + 1] = '\0')
-					{
-						return (-1);
-					}
 					write(1, &(format[i]), 1);
 					b++;
 			}
