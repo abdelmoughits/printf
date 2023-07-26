@@ -2,9 +2,9 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "main.h"
-void ttc(unsigned int num);
-void octa(unsigned int num);
-void exa(unsigned int num, int lar);
+int ttc(unsigned int num);
+int octa(unsigned int num);
+int exa(unsigned int num, int lar);
 /**
   *_printf - a simple version of printf
   *@format: a pointer to a const char
@@ -40,36 +40,32 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					ss = va_arg(ap, char *);
-					b++;
-					write(1, ss, strlen(ss));
+					b = strlen(ss);
+					write(1, ss, b);
 					i++;
 					break;
 				case 'o':
 					t = va_arg(ap, int);
 					dec = (unsigned int)t;
-					octa(dec);
+					b = octa(dec);
 					i++;
-					b++;
 					break;
 				case 'u':
 					dec = va_arg(ap, int);
-					ttc(dec);
+					b = ttc(dec);
 					i++;
-					b++;
 					break;
 				case 'x':
 					t = va_arg(ap, int);
 					dec = (unsigned int)t;
-					exa(dec, 97);
+					b = exa(dec, 97);
 					i++;
-					b++;
 					break;
 				case 'X':
 					t = va_arg(ap, int);
 					dec = (unsigned int)t;
-					exa(dec, 65);
+					b = exa(dec, 65);
 					i++;
-					b++;
 					break;
 				case 'i':
 				case 'd':
@@ -79,10 +75,10 @@ int _printf(const char *format, ...)
 					{
 						write(1, "-", 1);
 						t *= -1;
+						b++;
 					}
-					ttc(t);
+					b += ttc(t);
 					i++;
-					b++;
 					break;
 				default:
 					write(1, &(format[i]), 1);
@@ -105,51 +101,53 @@ int _printf(const char *format, ...)
   *@num: the number that will be treated
   *Return: nothing
   */
-void ttc(unsigned int num)
+int ttc(unsigned int num)
 {
 	char ptr;
-	int b = 0;
+	int b = 0, c = 1;
 
 	if ((num / 10) != 0)
 	{
 		b = num / 10;
-		ttc(b);
+		c += ttc(b);
 	}
 	ptr = (num % 10) + '0';
 	write(1, &ptr, 1);
+	return (c);
 }
 /**
   *octa - print a number with write
   *@num: the number that will be treated
   *Return: nothing
   */
-void octa(unsigned int num)
+int octa(unsigned int num)
 {
 	char ptr;
-	int b = 0;
+	int b = 0, c = 1;
 
 	if ((num / 8) != 0)
 	{
 		b = num / 8;
-		octa(b);
+		c += octa(b);
 	}
 	ptr = (num % 8) + '0';
 	write(1, &ptr, 1);
+	return (c);
 }
 /**
   *exa - print a number with write
   *@num: the number that will be treated
   *Return: nothing
   */
-void exa(unsigned int num, int lar)
+int exa(unsigned int num, int lar)
 {
 	char ptr;
-	int b = 0;
+	int b = 0, c = 1;
 
 	if ((num / 16) != 0)
 	{
 		b = num / 16;
-		exa(b, lar);
+		c += exa(b, lar);
 	}
 	if (num % 16 <= 9)
 	{
@@ -160,4 +158,5 @@ void exa(unsigned int num, int lar)
 		ptr = (num % 16) - 10 + lar;
 	}
 	write(1, &ptr, 1);
+	return (c);
 }
