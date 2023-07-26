@@ -137,6 +137,7 @@ int octa(unsigned int num)
 /**
   *exa - print a number with write
   *@num: the number that will be treated
+  *@lar: integer number.
   *Return: nothing
   */
 int exa(unsigned int num, int lar)
