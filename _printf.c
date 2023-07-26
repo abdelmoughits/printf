@@ -42,8 +42,8 @@ int _printf(const char *format, ...)
 					ss = va_arg(ap, char *);
 					if (ss == NULL)
 					{
-						write(1, "(null)", 6);
-						b = 6;
+						write(1, "(nul)", 5);
+						b = 5;
 						break;
 					}
 					b = strlen(ss);
